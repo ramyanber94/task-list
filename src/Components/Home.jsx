@@ -7,6 +7,7 @@ import CustomDialog from "./Custom-Dialog/CustomDialog";
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { isMobile } from 'react-device-detect';
 
 const useStyles = makeStyles(() => {
     return ({
@@ -17,7 +18,7 @@ const useStyles = makeStyles(() => {
 })
 
 function Home() {
-    const [drawerOpen, setDrawerOpen] = useState(true);
+    const [drawerOpen, setDrawerOpen] = useState(isMobile ? false : true);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [listName, setListName] = useState('');
     const [lists, setLists] = useState([]);
@@ -184,6 +185,7 @@ function Home() {
                 setValue={setItemValue}
                 handleKeyPress={handleItemValueSubmit}
                 list={itemsList}
+                lists={lists}
                 handleSaveClick={handleSaveClick}
                 handleDeleteItem={handleDeleteItem}
                 handleDeleteList={handleDeleteList}

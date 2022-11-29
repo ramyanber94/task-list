@@ -52,8 +52,8 @@ const SideSlider = (props) => {
         >
             <div className={classes.drawerHeader}></div>
             <Button sx={{
-                borderRadius: '34%',
-                margin: '10%'
+                margin: '10%',
+                height: '7%'
             }}
                 className={classes.button}
                 variant="contained"

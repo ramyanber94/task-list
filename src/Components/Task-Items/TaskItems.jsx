@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => {
 })
 
 const TaskItems = (props) => {
-    const { open, listDetails, value, setValue, handleKeyPress, list, handleSaveClick, handleDeleteItem, handleDeleteList } = props;
+    const { open, listDetails, value, setValue, handleKeyPress, list, handleSaveClick, handleDeleteItem, handleDeleteList, lists } = props;
     const [anchorEl, setAnchorEl] = useState(null);
     const opens = Boolean(anchorEl);
     const classes = useStyles();
@@ -64,32 +64,50 @@ const TaskItems = (props) => {
             })}
         >
             <div style={{ height: '20px' }} />
-            <Stack direction={"row"}>
-                <h1>{listDetails.name}</h1>
-                <IconButton size="small" onClick={handleClick} sx={{ position: 'relative', left: '91%' }}>
-                    <MoreVertIcon fontSize="small" />
-                </IconButton>
-                <Menu
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={opens}
-                    onClose={handleClose}
-                    MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                    }}
-                >
-                    <MenuItem onClick={handleDeleteList(listDetails, setAnchorEl)}>Delete list</MenuItem>
-                </Menu>
-            </Stack>
-            <Stack direction={"row"}>
-                <InputLabel><AddIcon /></InputLabel>
-                <Input placeholder="Add Item" value={value} onChange={handleChange} inputProps={ariaLabel} fullWidth onKeyPress={handleKeyPress(listDetails)} />
-            </Stack>
-            <List>
-                {list.map((l, i) => (
-                    <ItemsList key={l.id} l={l} i={i} handleSaveClick={handleSaveClick} handleDeleteItem={handleDeleteItem} />
-                ))}
-            </List>
+            {lists.length === 0 ?
+                <div style={{ textAlign: 'center', width: '100%' }}>
+                    <div style={{ height: '80px' }} />
+                    <h3 style={{ textAlign: 'center' }}>Your List is Empty</h3>
+                    <img src="https://ssl.gstatic.com/assistant/shoppinglist/checklist.png" alt="empty list" style={{ height: '33%' }} />
+                </div>
+                :
+                <>
+                    <Stack direction={"row"}>
+                        <h1>{listDetails.name}</h1>
+                        <IconButton size="small" onClick={handleClick} sx={{ position: 'relative', left: '91%' }}>
+                            <MoreVertIcon fontSize="small" />
+                        </IconButton>
+                        <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={opens}
+                            onClose={handleClose}
+                            MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                            }}
+                        >
+                            <MenuItem onClick={handleDeleteList(listDetails, setAnchorEl)}>Delete list</MenuItem>
+                        </Menu>
+                    </Stack>
+                    <Stack direction={"row"}>
+                        <InputLabel><AddIcon /></InputLabel>
+                        <Input placeholder="Add Item" value={value} onChange={handleChange} inputProps={ariaLabel} fullWidth onKeyPress={handleKeyPress(listDetails)} />
+                    </Stack>
+                    {list.length === 0 ?
+                        <div style={{ textAlign: 'center', width: '100%' }}>
+                            <div style={{ height: '50px' }} />
+                            <img src="https://ssl.gstatic.com/assistant/shoppinglist/cat_in_the_box.png" alt="empty items" style={{ height: '150px' }} />
+                            <h3>Your Item list is empty</h3>
+                        </div>
+                        :
+                        <List>
+                            {list.map((l, i) => (
+                                <ItemsList key={l.id} l={l} i={i} handleSaveClick={handleSaveClick} handleDeleteItem={handleDeleteItem} />
+                            ))}
+                        </List>
+                    }
+                </>
+            }
         </main>
     )
 }
