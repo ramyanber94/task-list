@@ -21,12 +21,15 @@ use App\Http\Controllers\Api\ItemsController;
 Route::controller(ListController::class)->group(function () {
     Route::get('/getlists', 'index');
     Route::post('/addlist', 'store');
+    Route::delete('/deletelist/{id}', 'destroy');
 });
  
 
 Route::controller(ItemsController::class)->group(function () {
     Route::get('/getitems/{list_id}', 'show');
     Route::post('/additem', 'store');
+    Route::put('/updateitem/{id}', 'update');
+    Route::delete('/delteitem/{id}', 'destory');
 });
 
 

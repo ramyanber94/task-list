@@ -16,8 +16,9 @@ return new class extends Migration
         //
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('list_id')->constrained('lists');
+            $table->foreignId('list_id')->constrained('lists')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->string('name');
+            $table->integer('isChecked');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('lists');
+        Schema::dropIfExists('items');
     }
 };

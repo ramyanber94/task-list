@@ -65,11 +65,17 @@ class ListController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Lists  $lists
+     * @param  \App\Models\id  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lists $lists)
+    public function destroy(String $id)
     {
         //
+        $list = Lists::find($id);
+        $list->delete();
+        return response()->json([
+            "success" => true,
+            "message" => "item deleted successfully.",
+        ]);
     }
 }

@@ -15,6 +15,7 @@ class Items extends Model
      */
     protected $fillable = [
         'name',
-        'list_id'
+        'list_id',
+        'isChecked'
     ];
 }

@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 import { Button, createTheme } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import TaskLists from "./TasksList";
+import List from "@mui/material/List";
 
 const drawerWidth = 240;
 
@@ -36,7 +37,7 @@ const useStyles = makeStyles(() => {
 })
 
 const SideSlider = (props) => {
-    const { open, handleDialogOpen, lists, handleClick } = props;
+    const { open, handleDialogOpen, lists, handleClick, selectedIndex } = props;
     const classes = useStyles();
 
     return (
@@ -61,7 +62,13 @@ const SideSlider = (props) => {
             >
                 New List
             </Button>
-            <TaskLists lists={lists} handleClick={handleClick} />
+            <List>
+                {
+                    lists.map((l, i) => (
+                        <TaskLists l={l} i={i} key={l.id} handleClick={handleClick} selectedIndex={selectedIndex} />
+                    ))
+                }
+            </List>
         </Drawer>
     )
 }

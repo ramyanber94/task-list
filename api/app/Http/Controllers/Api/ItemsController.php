@@ -60,36 +60,41 @@ class ItemsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Items  $items
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Items $items)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Items  $items
+     * @param  \App\Models\id  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Items $items)
+    public function update(Request $request, String $id)
     {
         //
+        $input = $request->all();
+        $item = Items::find($id);
+        $item->name = $input['name'];
+        $item->isChecked = isset($input['isChecked']) ? $input['isChecked'] : 0;
+        $item->save();
+        return response()->json([
+            "success" => true,
+            "message" => "item updated successfully.",
+            "data" => $item
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Items  $items
+     * @param  \Illuminate\Http\id  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Items $items)
+    public function destory(String $id)
     {
         //
+        $item = Items::find($id);
+        $item->delete();
+        return response()->json([
+            "success" => true,
+            "message" => "item deleted successfully.",
+        ]);
     }
 }
